@@ -25,12 +25,12 @@ async function run(){
 
         // POST API
         app.post('/properties', async (req, res) => {
-            const doc = {
-            title: "Record of a Shriveled Datum",
-            content: "No bytes, no problem. Just insert a document, in MongoDB",
-            }
+            const doc = req.body;
+            console.log('hit the post api', doc);
+
             const result = await propertiesCollection.insertOne(doc);
             console.log(result);
+            res.json(result);
         });
 
 
