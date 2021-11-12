@@ -22,6 +22,7 @@ async function run(){
         await client.connect();
         const database = client.db("dreamland");
         const propertiesCollection = database.collection("properties");
+        const purchaseCollection = database.collection("purchase");
 
         //GET API
         app.get('/properties', async (req, res) => {
@@ -36,6 +37,16 @@ async function run(){
             console.log('hit the post api', doc);
 
             const result = await propertiesCollection.insertOne(doc);
+            console.log(result);
+            res.json(result);
+        });
+
+        // POST for user purchase data
+        app.post('/purchase', async (req, res) => {
+            const document = req.body;
+            console.log('hit the post api', document);
+
+            const result = await purchaseCollection.insertOne(document);
             console.log(result);
             res.json(result);
         });
