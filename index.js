@@ -23,6 +23,13 @@ async function run(){
         const database = client.db("dreamland");
         const propertiesCollection = database.collection("properties");
 
+        //GET API
+        app.get('/properties', async (req, res) => {
+            const cursor = propertiesCollection.find({});
+            const properties = await cursor.toArray();
+	        res.send(properties);
+        })
+
         // POST API
         app.post('/properties', async (req, res) => {
             const doc = req.body;
