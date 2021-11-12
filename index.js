@@ -40,33 +40,14 @@ async function run(){
             res.json(result);
         });
 
-
-
-        //GET API
-        // app.get('/services', async (req, res) => {
-        //     const cursor = servicesCollection.find({});
-        //     const services = await cursor.toArray();
-	    //     res.send(services);
-        // })
-
-         //GET single service
-        // app.get('/services/:id', async (req, res) => {
-        //     const id = req.params.id;
-        //     const query = {_id: ObjectId(id)};
-        //     const service = await servicesCollection.findOne(query);
-        //     res.json(service);
-        // })
-
-        // POST API
-        // app.post('/services', async (req, res) => {
-        //     const service = req.body;
-        //     console.log('hit the post api', service);
-            
-        //     const result = await servicesCollection.insertOne(service);
-        //     console.log(result);
-        //     res.json(result)
-        // });
-
+        //GET single service
+        app.get('/properties/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)};
+            const property = await propertiesCollection.findOne(query);
+            res.json(property);
+        })
+        
         // DELETE API
         // app.delete('/services/:id', async (req, res) => {
         //     const id = req.params.id;
