@@ -70,14 +70,6 @@ async function run(){
             console.log(result);
             res.json(result);
         });
-
-        //GET single service
-        app.get('/properties/:id', async (req, res) => {
-            const id = req.params.id;
-            const query = {_id: ObjectId(id)};
-            const property = await propertiesCollection.findOne(query);
-            res.json(property);
-        })
         
         app.put('/users/admin', async (req, res) => {
             const user = req.body;
@@ -88,6 +80,24 @@ async function run(){
             res.json(result);
         });
 
+        app.get('/users/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email: email };
+            const user = await usersCollection.findOne(query);
+            let isAdmin = false;
+            if (user?.role === 'admin') {
+                isAdmin = true;
+            }
+            res.json({ admin: isAdmin });
+        })
+
+        //GET single service
+        app.get('/properties/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)};
+            const property = await propertiesCollection.findOne(query);
+            res.json(property);
+        })
 
         // DELETE API
         // app.delete('/services/:id', async (req, res) => {
