@@ -41,6 +41,15 @@ async function run(){
             res.json(result);
         });
 
+        //GET API
+        app.get('/purchase', async (req, res) => {
+            const email = req.query.email;
+            const query = {email: email}
+            const cursor = purchaseCollection.find(query);
+            const purchase = await cursor.toArray();
+	        res.send(purchase);
+        })
+
         // POST for user purchase data
         app.post('/purchase', async (req, res) => {
             const document = req.body;
