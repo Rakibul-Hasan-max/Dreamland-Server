@@ -24,6 +24,7 @@ async function run(){
         const propertiesCollection = database.collection("properties");
         const purchaseCollection = database.collection("purchase");
         const usersCollection = database.collection("users");
+        const reviewCollection = database.collection("review");
 
         //GET API
         app.get('/properties', async (req, res) => {
@@ -77,6 +78,16 @@ async function run(){
             const filter = { email: user.email };
             const updateDoc = { $set: { role: 'admin' } };
             const result = await usersCollection.updateOne(filter, updateDoc);
+            res.json(result);
+        });
+
+        // POST API for review
+        app.post('/review', async (req, res) => {
+            const docu = req.body;
+            console.log('hit the post api', docu);
+
+            const result = await reviewCollection.insertOne(docu);
+            console.log(result);
             res.json(result);
         });
 
